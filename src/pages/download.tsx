@@ -1,4 +1,4 @@
-import { IonHeader, IonButtons, IonBackButton, IonToolbar, IonTitle, IonContent, IonButton, IonRouterLink } from '@ionic/react';
+import { IonHeader, IonButtons, IonBackButton, IonToolbar, IonTitle, IonContent, IonButton, IonRouterLink, IonPage } from '@ionic/react';
 import { useHistory, useParams } from 'react-router';
 import Image from '../assets/images/download.png';
 import Images from '../assets/images/logo.png'
@@ -6,7 +6,7 @@ import localforage from 'localforage';
 // import { Device } from '@capacitor/device';
 
 const DownloadPage = () => {
-  const {id} = useParams();
+  const {id}:any = useParams();
   const history = useHistory();
 
     //Here we are going to fix it up with stripe or so
@@ -46,11 +46,11 @@ const DownloadPage = () => {
 
   // const handleFlutterPayment = useFlutterwave(config);
 
-  const makePayment = async (e) =>{
+  const makePayment = async (e:any) =>{
     FlutterwaveCheckout({
-      public_key: "FLWPUBK-17db7720752df7fc23b9e9dbbec997ea-X",
+      public_key: "FLWPUBK_TEST-edcf63b372f8cb290127aa8c11f9f2f3-X",
       tx_ref: 'uuidv4()',
-      amount: 500,
+      amount: 300,
       currency: "NGN",
       payment_options: "card",
       redirect_url: "https://perfectionserver.vercel.app/payment",
@@ -72,21 +72,13 @@ const DownloadPage = () => {
   }
 
   return (
-    <>
-      {/* <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-              <IonBackButton></IonBackButton>
-          </IonButtons>
-          <IonTitle>{id}</IonTitle>
-        </IonToolbar>
-      </IonHeader> */}
-      <IonContent fullscreen>
+    <IonPage>
+      <IonContent>
         <div className='download-image'>
             <img src={Image} alt="Download Perfection manual" />
-            <h2 style={{textAlign: 'center', fontWeight:'600'}}>Download Manual</h2>
+            <h2 style={{textAlign: 'center'}}>Download Manual</h2>
             <IonButton 
-              onClick={makePayment}
+             onClick={makePayment}
             >Pay</IonButton>
 
             <h6 style={{fontWeight: '700'}}>OR</h6>
@@ -98,7 +90,7 @@ const DownloadPage = () => {
             {/* <button id="open-custom-dialog" expand="block">Download</button> */}
         </div>
       </IonContent>
-    </>
+    </IonPage>
   );
 }
 

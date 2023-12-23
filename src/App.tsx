@@ -13,13 +13,10 @@ import { home, book } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+ 
 
 
 // Pages 
-import Home from './pages/home';
-
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,6 +38,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import DownloadPage from './pages/download';
 import Manual from './pages/manual';
+import More from './pages/more';
 
 setupIonicReact();
 
@@ -50,10 +48,11 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/tab1" component={Tab1} />
-          <Route path="/select" component={Tab2} />
+          {/* <Route path="/select" component={Tab2} /> */}
 
           <Route path="/manual/:id" component={Manual} />
           <Route path="/download/:id" component={DownloadPage} />
+          <Route path="/more" component={More} />
 
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -66,9 +65,9 @@ const App: React.FC = () => (
             <IonIcon icon={home} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/select">
+          <IonTabButton tab="tab2" href="/more">
             <IonIcon icon={book} />
-            <IonLabel>Download</IonLabel>
+            <IonLabel>More</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonIcon, IonRouterLink, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import { useEffect, useState } from 'react';
 import Logo from '../assets/images/logo.png'
 import { useHistory, Route } from 'react-router-dom';
-import { arrowForward, enterSharp } from 'ionicons/icons';
+import { arrowForward, enterSharp, bookOutline, bookSharp, keySharp, lockClosed } from 'ionicons/icons';
 import './home.css';
+import localforage from 'localforage';
 
 interface Information {
   id: string,
@@ -14,9 +14,10 @@ interface Information {
 const Tab1: React.FC = () => {
   const [info, setInfo] = useState([]);
   const history = useHistory();
+  const [id, setId] = useState<string[]>([]);
 
 
-  const currentYear = info[0] as {id: String, year: number, title: String, yearname: string }
+  const currentYear = info[0] as {id: string, year: number, title: String }
 
   useEffect(() => {
     const fetchData = async() =>{
@@ -28,6 +29,22 @@ const Tab1: React.FC = () => {
     fetchData()
   }, [])
 
+  useEffect(() =>{
+
+    
+
+    const read = async() =>{  
+    localforage.setItem('Jan-June-2022', 'readme');
+    localforage.setItem('Jan-June-2023', 'readme');
+ 
+    const ids:any = await localforage.keys()
+    setId([...id, ...ids])    
+    }
+
+    read()
+  }, [])
+  
+
   const handleClick = (x: string) => {
     history.push(x);
   };
@@ -38,55 +55,58 @@ const Tab1: React.FC = () => {
   // console.log(previous);
   return (
     <IonPage>
-      {/* <IonHeader>
-        <IonToolbar>
-          <IonTitle>Home</IonTitle>
-        </IonToolbar>
-      </IonHeader> */}
-      <IonContent fullscreen>
-       {/* <IonRouterOutlet>
-          <Route path="/download/:id">
-            <DownloadPage />
-          </Route>
-
-          <Route path="/manual/:id">
-            <Manual />
-          </Route>
-       </IonRouterOutlet> */}
-
+      <IonContent>
         <div className="container">
             <div className="home">
               <div className='header'>
                 <img style={{width: '50px'}} src={Logo} alt="Logo will be here" />
-                <h3>{currentYear?.year}</h3>
+                <h3 className='text-white'>{currentYear?.year}</h3>
               </div>
+              <p>{currentYear?.title}</p>
               <div className='quater'>
-                    <IonRouterLink onClick={() => handleClick(`/manual/${currentYear?.id}`)}><h3>{currentYear?.title}</h3></IonRouterLink>
+                    {
+                       id.includes(currentYear.id) ? (
+                         <IonRouterLink onClick={() => handleClick(`/manual/${currentYear?.id}`)}><h3><IonIcon style={{color: 'white'}} icon={bookOutline} /> Read</h3></IonRouterLink>
+                       ):(
+                        <IonRouterLink onClick={() => handleClick(`/download/${currentYear?.id}`)}><h3><IonIcon style={{color: 'white'}} icon={lockClosed} /> Read</h3></IonRouterLink>
+                       )
+
+                    }
               </div>
-            </div>
+            </div>  
 
-            
-
-            <div className="previous">
+            <div className="previous-year">
               {
+   
                   previous.map(ele =>(
-                    <div key={ele.id} className='prev-container'>
-                    <div className="year">
-                        <h3>{ele.year}</h3>
-                    </div>
-                    <div className='section' style={{display: 'flex'}}>
-                        <h3 style={{fontWeight: '700', textAlign: 'left', marginLeft: '20px'}}>{ele.title}</h3>
-                    </div>
-
-                     <IonIcon onClick={() => handleClick(`/manual/${ele.id}`)} icon={enterSharp} style={{color: 'green',fontSize: '50px'}}/>                    
+                   <div key={ele.id} className="previous-item">
+                      <div style={{margin: '0px auto', fontSize: '40px', textAlign:'center'}} >
+                      <IonIcon icon={bookSharp} style={{color: 'green'}}/>
+                      <h2 style={{ fontSize: '15px', fontWeight: 'bolder', marginBottom: '20px'}}>{ele.title} {ele.year}</h2>
+                      
+                      
+                       {
+                         id.includes(ele.id) ? (
+                         <section className='btn' onClick={() => handleClick(`/manual/${ele?.id}`)}><p>Read</p> 
+                       <IonIcon icon={arrowForward} /></section>):(
+                          <section className='btn' onClick={() => handleClick(`/download/${ele?.id}`)}>
+                          <IonIcon icon={lockClosed} />
+                            <p>Unlock</p> 
+                          </section>
+                       )
+                       }
+                      </div>
                     </div>
                   ))
               }
                 
 
-            </div>
+            </div> 
+           
         </div>
+
       </IonContent>
+
     </IonPage>
   );
 };
