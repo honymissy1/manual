@@ -31,8 +31,16 @@
     text-align: center;
     font-weight: bolder;
     font-size:30px;
-    padding: 15px;
+    padding: 5px 15px;
     text-shadow: .2px .3px 4px black;
+}
+
+.home h4{
+    margin: 0px auto;
+    text-align: center;
+    width: 80%;
+    font-size: 1.7rem;
+    color: rgb(32,50,75);
 }
 
 .header{
@@ -123,37 +131,48 @@
 }
 
 .previous-item{
-    padding: 10px;
+    padding: 20px 10px;
     margin-top: 20px;
-    max-width: 250px;
+    max-width: 200px;
     min-width: 100px;
-    width: 45%;
+    width: 40%;
     height: auto;
     /* border: 1px solid; */
     color: rgb(62, 61, 61);
     border-radius: 5px;
     /* background-color: rgb(126, 188, 207); */
-    box-shadow: .5px .3px 2.4px black;
+    box-shadow: .5px .3px 2.4px #a6a1a1;
 }
+
+.payment-btn {
+    font-weight: bolder;
+    margin-top: 40px;
+    padding: 15px;
+    border-radius: 5px;
+    background: orange
+}
+
+section .btn p{
+    color: red !important
+} 
 
 .previous-item section.btn{
     font-size: 13px;
     align-items: center;
     justify-content: space-evenly;
     background-color: rgb(35, 95, 147);
-    height: max-content;
+    height: 30px;
+    padding: 10px;
     color: white;
     margin: 0px auto;
     border-radius: 5px;
-    width: 70px;
+    width: max-content;
+    padding: 0px 10px;
     display: flex;
+    gap: 10px;
     background-color: rgb(23, 48, 48);
     
 }
-
-
-
-
 
 .previous .year h3{
     font-weight: 900;
