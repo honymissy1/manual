@@ -3,7 +3,8 @@ import { useHistory, useParams } from 'react-router';
 import Image from '../assets/images/download.png';
 import Images from '../assets/images/logo.png'
 import localforage from 'localforage';
-import './home.css'
+import './home.css';
+import { Device } from '@capacitor/device';
 
 import { FlutterWaveButton, closePaymentModal  } from 'flutterwave-react-v3';
 
@@ -33,16 +34,22 @@ const DownloadPage = () => {
   const fwConfig = {
     ...config,
     text: 'Click to Pay',
-    callback: (response:any) => {
-      // we have the call to the server here and we'll 
-      // Get the manual from the server
-      // and save it in the frontend database
-       console.log(response);
+    callback: async(response:any) => {
+      const info = await Device.getId();
+      const userId = info.identifier.split('-')[0]
+
+      const data = await fetch(`https://perfectionserver.vercel.app/payment/${userId}?manualId=${id}`)
+      const result = await data.json();
+
+      if(data.ok){
+        localforage.setItem(id, JSON.stringify(result))
+      }else{
+        alert('Something went wrong...')
+      }
       // closePaymentModal() // this will close the modal programmatically
     },
     onClose: () => {
       console.log('Closed');
-      
     },
   };
 

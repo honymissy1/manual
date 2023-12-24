@@ -36,14 +36,11 @@ function Manual() {
   const [currentPage, setCurrentPage] = useState(0);
   const [menuEnabled, setMenuEnabled] = useState(true);
  
-  useEffect(() =>{
-    console.log(id);
-    
+  useEffect(() =>{  
     localforage.getItem(id)
      .then((result:any) =>{
       result !== null ? (setFileContents(JSON.parse(result)))
        : (setFileContents([]))
-
      })
   }, [])
 
@@ -53,9 +50,29 @@ function Manual() {
 
   
   return (
+    <>
+      <IonMenu contentId="main-content">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Menu Content</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">This is the menu content.</IonContent>
+      </IonMenu>
     <IonPage>
+       <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+            <IonTitle>Table of Content</IonTitle>
+          </IonToolbar>
+        </IonHeader>
       <h1>Welcome to Manual Page {id}</h1>
+
+      <p>{JSON.stringify(fileContents)}</p>
     </IonPage>
+    </>
   );
 }
 export default Manual;

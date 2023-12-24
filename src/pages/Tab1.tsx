@@ -5,6 +5,7 @@ import { useHistory, Route } from 'react-router-dom';
 import { keyOutline, arrowForward, bookOutline, lockClosed } from 'ionicons/icons';
 import './home.css';
 import localforage from 'localforage';
+import { Device } from '@capacitor/device';
 
 interface Information {
   id: string,
@@ -21,8 +22,9 @@ const Tab1: React.FC = () => {
 
   useEffect(() =>{
     const read = async () =>{  
-    const ids:any = await localforage.keys()
-    setId([...ids])    
+
+      const ids:any = await localforage.keys()
+      setId([...ids])    
     }
 
     read()
