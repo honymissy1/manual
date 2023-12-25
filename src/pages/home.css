@@ -21,6 +21,25 @@
     z-index: 3
 }
 
+.overlay{
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: rgb(13, 102, 102);
+    background-color: rgba(255, 255, 255, 0.958);
+    width: 100vw;
+}
+
+.overlay img{
+    width: 20%
+}
+
 .home h1{
     font-weight: 600;
     text-align: center;
@@ -125,7 +144,7 @@
     width: 100%;
     height: auto;
     display: flex;
-    gap: 10px;
+    /* gap: 10px; */
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
@@ -134,13 +153,14 @@
     padding: 20px 10px;
     margin-top: 20px;
     max-width: 200px;
-    min-width: 100px;
-    width: 40%;
+    min-width: 140px;
+    width: 35%;
     height: auto;
     /* border: 1px solid; */
     color: rgb(62, 61, 61);
     border-radius: 5px;
     /* background-color: rgb(126, 188, 207); */
+
     box-shadow: .5px .3px 2.4px #a6a1a1;
 }
 

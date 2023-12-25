@@ -5,13 +5,18 @@ import Images from '../assets/images/logo.png'
 import localforage from 'localforage';
 import './home.css';
 import { Device } from '@capacitor/device';
+import Loading from '../assets/images/loading.gif';
+
 
 import { FlutterWaveButton, closePaymentModal  } from 'flutterwave-react-v3';
+import { useState } from 'react';
 
 
 const DownloadPage = () => {
   const {id}:any = useParams();
   const history = useHistory();
+  const [loading, setLoading] = useState<boolean>(false);
+
 
   const config:any = {
     public_key: 'FLWPUBK_TEST-edcf63b372f8cb290127aa8c11f9f2f3-X',
@@ -37,7 +42,6 @@ const DownloadPage = () => {
     callback: async(response:any) => {
       const info = await Device.getId();
       const userId = info.identifier.split('-')[0]
-
       const data = await fetch(`https://perfectionserver.vercel.app/payment/${userId}?manualId=${id}`)
       const result = await data.json();
 
@@ -53,9 +57,32 @@ const DownloadPage = () => {
     },
   };
 
+  const verify = async() =>{
+    setLoading(true)
+    const info = await Device.getId();
+    const userId = info.identifier.split('-')[0]
+    const fetcher = await fetch(`https://perfectionserver.vercel.app/verify/${userId}?manualId=${id}`);
+    const result = await fetcher.json();
+    
+    if(fetcher.ok){
+      setLoading(false);
+      const local = await localforage.setItem(id, JSON.stringify(result));
+      history.push(`/manual/${id}`)
+    }
+    
+  }
+
   return (
     <IonPage>
       <IonContent>
+        {
+          loading && (
+            <div className='overlay'>
+              <img src={Loading} alt="" />
+              <h2>Loading</h2>
+            </div>
+          )
+        }
         <div className='download-image'>
             <img src={Image} alt="Download Perfection manual" />
             <h2 style={{textAlign: 'center'}}>Download Manual</h2>
@@ -65,7 +92,7 @@ const DownloadPage = () => {
 
             <p>If you have paid for this but can't find the page click the link below to verify and download {id}</p>
 
-            <a href="/check">Verify and Download</a>
+            <a onClick={verify}>+ Click to Verify and Download</a>
             
             {/* <button id="open-custom-dialog" expand="block">Download</button> */}
         </div>
