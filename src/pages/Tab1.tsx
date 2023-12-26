@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonIcon, IonRouterLink, IonPage, IonTitle, IonTo
 import { useEffect, useState } from 'react';
 import Logo from '../assets/images/logo.png'
 import { useHistory, Route } from 'react-router-dom';
-import { keyOutline, arrowForward, bookOutline, lockClosed } from 'ionicons/icons';
+import { keyOutline, arrowForward, bookOutline, lockClosed, calendarNumberOutline } from 'ionicons/icons';
 import './home.css';
 import localforage from 'localforage';
 import { Device } from '@capacitor/device';
@@ -35,7 +35,6 @@ const Tab1: React.FC = () => {
       const data = await fetch(`/information.json`);
       const jsonData = await data.json();
       setInfo(jsonData)
-      // console.log();  
     }
     fetchData()
   }, [])  
@@ -56,7 +55,7 @@ const Tab1: React.FC = () => {
                 <h3 className='text-white'>{currentYear?.year}</h3>
               </div>
               <h4>SUNDAY SCHOOL MANUAL</h4>
-              <p>{currentYear?.title}</p>
+              <p><IonIcon style={{color: 'white'}} icon={calendarNumberOutline} /> {currentYear?.title}</p>
               <div className='quater'>
                     {
                        id.includes(currentYear?.id) ? (
@@ -83,7 +82,7 @@ const Tab1: React.FC = () => {
                         <IonIcon icon={lockClosed} style={{color: 'red'}}/>
                       )
                      }
-                      <h2 style={{ fontSize: '15px', fontWeight: 'bolder', margin: '10px 0px'}}>{ele.title} {ele.year}</h2>
+                      <h2 className='light' style={{ color: 'rgb(221, 218, 218)'}}>{ele.title} {ele.year}</h2>
                       
                       
                        {

@@ -9,7 +9,7 @@
 }
 
 .home{
-    padding: 20px 10px;
+    padding: 10px;
     background-image: url('../assets/images/home.jpg');
     width: 100%;
     background-position: center;
@@ -49,7 +49,7 @@
 .home p{
     text-align: center;
     font-weight: bolder;
-    font-size:30px;
+    font-size:20px;
     padding: 5px 15px;
     text-shadow: .2px .3px 4px black;
 }
@@ -58,7 +58,8 @@
     margin: 0px auto;
     text-align: center;
     width: 80%;
-    font-size: 1.7rem;
+    font-weight: bolder;
+    font-size: 1.4rem;
     color: rgb(32,50,75);
 }
 
@@ -91,12 +92,20 @@
 }
 
 
+.light{
+    text-shadow: .4px .5px 1px #9f9f9f;
+    color: rgb(178, 165, 165);
+    font-size: 15px;
+    font-weight: bolder;
+    margin: 10px 0px
+}
+
 .quater h3{
     display: flex;
     align-items: center;
     gap: 10px;
     justify-content: center;
-    padding: 10px 5px;
+    padding: 5px 5px;
     border-radius: 5px;
     background-color: rgb(32, 50, 75);
     font-size: 15px;

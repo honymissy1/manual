@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import localforage from 'localforage';
 import Logo from '../assets/images/perfectionlogo.png'
 import { pin, bookmark, bulbSharp, alertCircle } from 'ionicons/icons';
+import { IonBackButton } from '@ionic/react';
+
 
 import { 
   IonButtons,
@@ -57,41 +59,45 @@ function Manual() {
   
   return (
     <>
-      <IonMenu contentId="main-content">
-        <IonHeader>
-          <IonToolbar color="primary" title='Boom'>
-            <IonTitle style={{display: 'flex', padding: '20px'}}>
-              <img src={Logo} alt="" style={{height: '60px'}} />
-              <p>Table of Content</p>
-            </IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-             {
-                fileContents.map((ele:any, index:number)=>(
-                  <IonMenuToggle key={index} onClick={() => setCurrentPage(index)}>
-                    <IonCard style={{padding: '5px',background: index == currentPage ? 'rgb(198, 255, 198)': '' }}>
-                      <IonLabel color="success">{ele.date}</IonLabel>
-                      <p>{ele.title} {ele.part}</p>
-                    </IonCard>
-                  </IonMenuToggle>
-                ))
-              }
-        </IonContent>
-      </IonMenu>
+    <IonMenu contentId="main-content">
+      <IonHeader>
+        <IonToolbar color="primary" title='Boom'>
+          <IonTitle style={{display: 'flex', padding: '20px'}}>
+            <img src={Logo} alt="" style={{height: '60px'}} />
+            <p>Table of Content</p>
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+            {
+              fileContents.map((ele:any, index:number)=>(
+                <IonMenuToggle key={index} onClick={() => setCurrentPage(index)}>
+                  <IonCard style={{padding: '5px',background: index == currentPage ? 'rgb(198, 255, 198)': '' }}>
+                    <IonLabel color="success">{ele.date}</IonLabel>
+                    <p>{ele.title} {ele.part}</p>
+                  </IonCard>
+                </IonMenuToggle>
+              ))
+            }
+      </IonContent>
+    </IonMenu>
     <IonPage id="main-content">
        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
+         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton></IonBackButton>
+          </IonButtons>
+          
+            <IonTitle slot='end'>{id}</IonTitle>
+            <IonButtons slot="end">
               <IonMenuButton></IonMenuButton>
             </IonButtons>
-            <IonTitle slot='end'>{id}</IonTitle>
           </IonToolbar>
         </IonHeader>
 
       <IonContent>
         <div style={{padding: '10px'}}>
-          <h3 style={{fontWeight: 'bold', textAlign: 'center'}}>{fileContents[currentPage]?.title} Pt_{fileContents[currentPage]?.part}</h3>
+          <h3 style={{fontWeight: 'bold', textAlign: 'center'}}>{fileContents[currentPage]?.title} {fileContents[currentPage]?.part}</h3>
           
           <IonCard style={{paddingTop: "10px"}}>
             <IonCardTitle>
@@ -104,22 +110,29 @@ function Manual() {
           </IonCard>
 
           {
-            fileContents[currentPage]?.main_text.length > 0 && (
-              <IonAccordionGroup>
-                  <IonAccordion value="first" style={{width: '95%', margin: '20px auto'}}>
-                    <IonItem slot="header" color="light">
-                      <IonLabel><b>Main Text</b></IonLabel>
-                    </IonItem>
-                    <div style={{backgroundColor: 'grey', color:'white'}} className="ion-padding" slot="content">
-                      <IonText>
-                        <b> {fileContents[currentPage]?.main_text}</b>
-                      </IonText>
-                    
-                    </div>
-                  </IonAccordion>
-              </IonAccordionGroup>
-            )
+             fileContents[currentPage]?.main_text && (
+              <div>
+                {
+                  fileContents[currentPage]?.main_text.length > 0 && (
+                    <IonAccordionGroup>
+                        <IonAccordion value="first" style={{width: '95%', margin: '20px auto'}}>
+                          <IonItem slot="header" color="light">
+                            <IonLabel><b>Main Text</b></IonLabel>
+                          </IonItem>
+                          <div style={{backgroundColor: 'grey', color:'white'}} className="ion-padding" slot="content">
+                            <IonText>
+                              <b> {fileContents[currentPage]?.main_text}</b>
+                            </IonText>
+                          
+                          </div>
+                        </IonAccordion>
+                    </IonAccordionGroup>
+                  )
+                }
+              </div>
+             )
           }
+
 
 
           {fileContents[currentPage]?.note.length > 0 && (

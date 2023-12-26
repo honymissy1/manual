@@ -6,6 +6,8 @@ import localforage from 'localforage';
 import './home.css';
 import { Device } from '@capacitor/device';
 import Loading from '../assets/images/loading.gif';
+import { caretBack} from 'ionicons/icons';
+
 
 
 import { FlutterWaveButton, closePaymentModal  } from 'flutterwave-react-v3';
@@ -26,7 +28,7 @@ const DownloadPage = () => {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'perfectionmanual@gmail.com',
-      phone_number: '070********',
+      phone_number: '08155550465',
       name: 'john doe',
     },
     customizations: {
@@ -46,7 +48,9 @@ const DownloadPage = () => {
       const result = await data.json();
 
       if(data.ok){
-        localforage.setItem(id, JSON.stringify(result))
+        localforage.setItem(id, JSON.stringify(result));
+        history.push(`/manual/${id}`)
+
       }else{
         alert('Something went wrong...')
       }
@@ -69,11 +73,24 @@ const DownloadPage = () => {
       const local = await localforage.setItem(id, JSON.stringify(result));
       history.push(`/manual/${id}`)
     }
+
+    if(fetcher.status === 400){
+      setLoading(false);
+      alert('You have never bought the app')
+ 
+    }
     
   }
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton></IonBackButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
         {
           loading && (
