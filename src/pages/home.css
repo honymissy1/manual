@@ -93,8 +93,8 @@
 
 
 .light{
-    text-shadow: .4px .5px 1px #9f9f9f;
-    color: rgb(178, 165, 165);
+    /* text-shadow: .2px .2px 1px black; */
+    color: rgb(126, 96, 96);
     font-size: 15px;
     font-weight: bolder;
     margin: 10px 0px

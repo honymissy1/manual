@@ -82,7 +82,7 @@ const Tab1: React.FC = () => {
                         <IonIcon icon={lockClosed} style={{color: 'red'}}/>
                       )
                      }
-                      <h2 className='light' style={{ color: 'rgb(221, 218, 218)'}}>{ele.title} {ele.year}</h2>
+                      <h2 className='light'>{ele.title} {ele.year}</h2>
                       
                       
                        {
