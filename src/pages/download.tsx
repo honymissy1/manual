@@ -1,7 +1,7 @@
 import { IonHeader,IonIcon, IonButtons, IonBackButton, IonToolbar, IonTitle, IonContent, IonButton, IonRouterLink, IonPage } from '@ionic/react';
 import { useHistory, useParams } from 'react-router';
 import Image from '../assets/images/download.png';
-import Images from '../assets/images/logo.png'
+import Images from '../assets/images/logo.png';
 import localforage from 'localforage';
 import './home.css';
 import { Device } from '@capacitor/device';
@@ -10,7 +10,7 @@ import { Network } from '@capacitor/network';
 import { wifiOutline } from 'ionicons/icons';
 
 
-import { FlutterWaveButton, closePaymentModal  } from 'flutterwave-react-v3';
+import {  closePaymentModal  } from 'flutterwave-react-v3';
 import { useState, useEffect } from 'react';
 
 
@@ -18,8 +18,10 @@ const DownloadPage = () => {
   const {id}:any = useParams();
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
-  const [network, setNetwork] = useState<boolean>(true)
+  const [network, setNetwork] = useState<boolean>(true);
+  const [userId, setUserId] = useState<any>('');
   
+
   useEffect(() =>{
     const netowrks = async () =>{
       const status = await Network.getStatus();
@@ -54,7 +56,7 @@ const DownloadPage = () => {
 
   const makePayment = () =>{
     FlutterwaveCheckout({
-      public_key: 'FLWPUBK_TEST-edcf63b372f8cb290127aa8c11f9f2f3-X',
+      public_key: 'FLWPUBK-f5771c16f68eb570d91c4c8ae5092ed1-X',
       tx_ref: Date.now(),
       amount: 300,
       currency: 'NGN',
@@ -80,36 +82,19 @@ const DownloadPage = () => {
           history.push(`/manual/${id}`)
   
         }else{
-          alert('Something went wrong...')
+          alert('Something went wrong...try verifying your download in the download page or retry payment')
         }
         // closePaymentModal() // this will close the modal programmatically
       },
     })
   }
 
-  // const fwConfig = {
-  //   ...config,
-  //   text: 'Click to Pay',
-  //   callback: async(response:any) => {
-  //     const info = await Device.getId();
-  //     const userId = info.identifier.split('-')[0]
-  //     const data = await fetch(`https://perfectionserver.vercel.app/payment/${userId}?manualId=${id}`)
-  //     const result = await data.json();
-
-  //     if(data.ok){
-  //       localforage.setItem(id, JSON.stringify(result));
-  //       history.push(`/manual/${id}`)
-
-  //     }else{
-  //       alert('Something went wrong...')
-  //     }
-  //     // closePaymentModal() // this will close the modal programmatically
-  //   },
-  //   onClose: () => {
-  //     console.log('Closed');
-  //   },
-
-  // };
+  const userIdCheck = async() =>{
+    const info = await Device.getId();
+    const userId = info.identifier.split('-')[0];
+    
+    alert("Unique Id: "+userId)
+  }
 
   const verify = async() =>{
     setLoading(true)
@@ -156,7 +141,7 @@ const DownloadPage = () => {
             {/* <FlutterWaveButton {...fwConfig} className='payment-btn' /> */}
             {
               network ? (<button onClick={makePayment} className='payment-btn'>Click to Pay</button>):
-              (<button onClick={() => alert('Check your internet connection')} style={{background: 'black'}} className='payment-btn'>Connect to network to download Manual</button>)
+              (<button onClick={() => alert('Check your internet connection')} className='payment-btn'>Connect to network to download Manual</button>)
             }
             <h6 style={{fontWeight: '700'}}>OR</h6>
 
@@ -169,7 +154,10 @@ const DownloadPage = () => {
             }
             
             {/* <button id="open-custom-dialog" expand="block">Download</button> */}
+      
         </div>
+
+        <button onClick={userIdCheck} style={{position: 'fixed', bottom: 0, padding: '5px'}}><b>USERID</b></button>
       </IonContent>
     </IonPage>
   );

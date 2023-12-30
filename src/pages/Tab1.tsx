@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonIcon, IonRouterLink, IonPage, IonTitle, IonTo
 import { useEffect, useState } from 'react';
 import Logo from '../assets/images/logo.png'
 import { useHistory, Route } from 'react-router-dom';
-import { keyOutline, arrowForward, bookOutline, lockClosed, calendarNumberOutline } from 'ionicons/icons';
+import { keyOutline, arrowForward, bookOutline, lockClosed, calendarNumberOutline, warningSharp } from 'ionicons/icons';
 import './home.css';
 import localforage from 'localforage';
 import { Device } from '@capacitor/device';
@@ -10,7 +10,8 @@ import { Device } from '@capacitor/device';
 interface Information {
   id: string,
   year: String,
-  title: string
+  title: string,
+  available: string
 }
 const Tab1: React.FC = () => {
   const [info, setInfo] = useState([]);
@@ -77,7 +78,6 @@ const Tab1: React.FC = () => {
                      {
                       id.includes(ele.id) ? (
                         <IonIcon icon={bookOutline} style={{color: 'green'}}/>
-
                       ):(
                         <IonIcon icon={lockClosed} style={{color: 'red'}}/>
                       )
@@ -88,12 +88,24 @@ const Tab1: React.FC = () => {
                        {
                          id.includes(ele.id) ? (
                          <section className='btn' onClick={() => handleClick(`/manual/${ele?.id}`)}><p>Read</p> 
-                       <IonIcon icon={arrowForward} /></section>):(
-                          <section className='btn' onClick={() => handleClick(`/download/${ele?.id}`)}>
-                          <IonIcon icon={keyOutline} />
-                            <p>Unlock</p> 
-                          </section>
-                       )
+                         <IonIcon icon={arrowForward} /></section>):(
+                        <div>
+                          {
+                            ele.available ? (
+                              <section className='btn' onClick={() => handleClick(`/download/${ele?.id}`)}>
+                                <IonIcon icon={keyOutline} />
+                                <p>Unlock</p> 
+                              </section>
+                            ):(
+                              <section className='btn2' onClick={() => alert(`The ${ele.id} sunday school manual will be available for download very soon..`)}>
+                                <IonIcon icon={warningSharp} style={{color: 'rgb(236, 75, 75)'}}/>
+                                <p>Coming Soon</p> 
+                              </section>
+                            )
+                          }
+
+                        </div>
+                        )
                        }
                       </div>
                     </IonCard>

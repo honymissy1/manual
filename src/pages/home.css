@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 .container{
-    background-color: white;
+    /* background-color: white; */
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -105,7 +105,7 @@
     align-items: center;
     gap: 10px;
     justify-content: center;
-    padding: 5px 5px;
+    padding: 10px;
     border-radius: 5px;
     background-color: rgb(32, 50, 75);
     font-size: 15px;
@@ -181,26 +181,36 @@
     background: orange
 }
 
-section .btn p{
-    color: red !important
-} 
 
-.previous-item section.btn{
+section.btn{
     font-size: 13px;
     align-items: center;
     justify-content: space-evenly;
     background-color: rgb(35, 95, 147);
     height: 30px;
+    color: white;
+    margin: 20px auto 0px;
+    border-radius: 5px;
+    width: max-content;
+    padding: 5px 10px; 
+    display: flex;
+    gap: 10px;
+}
+
+section.btn2{
+    font-size: 13px;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 30px;
     padding: 10px;
     color: white;
-    margin: 0px auto;
+    margin: 20px auto 0px;
     border-radius: 5px;
     width: max-content;
     padding: 0px 10px;
     display: flex;
     gap: 10px;
     background-color: rgb(23, 48, 48);
-    
 }
 
 .previous .year h3{

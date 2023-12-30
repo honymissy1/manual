@@ -28,20 +28,13 @@ import {
   IonChip, IonAvatar, IonIcon, IonText
 
 } from '@ionic/react';
-import { Route, useParams, useHistory, Redirect } from 'react-router-dom';
-import { IonReactRouter } from '@ionic/react-router';
-
-import { trophy } from 'ionicons/icons';
-import DownloadPage from './download';
-import Tab1 from './Tab1';
-// import manual from '../../public/manual.json';
+import {useParams, useHistory, Redirect } from 'react-router-dom';
 
 function Manual() {
 
   const {id}:any = useParams();
   const history = useHistory();
 
-  // const [currentDirectory, setCurrentDirectory] = useState('');
   const [fileContents, setFileContents] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -99,15 +92,19 @@ function Manual() {
         <div style={{padding: '10px'}}>
           <h3 style={{fontWeight: 'bold', textAlign: 'center'}}>{fileContents[currentPage]?.title} {fileContents[currentPage]?.part}</h3>
           
-          <IonCard style={{paddingTop: "10px"}}>
-            <IonCardTitle>
-              <IonChip>
-                <IonIcon icon={bookmark} color="primary"></IonIcon>
-                <IonLabel>Memory Verse</IonLabel>
-              </IonChip>
-            </IonCardTitle>
-            <IonCardContent>{fileContents[currentPage]?.memoryVerse}</IonCardContent>
-          </IonCard>
+          {
+            fileContents[currentPage]?.memoryVerse && (
+              <IonCard style={{paddingTop: "10px"}}>
+                <IonCardTitle>
+                  <IonChip>
+                    <IonIcon icon={bookmark} color="primary"></IonIcon>
+                    <IonLabel>Memory Verse</IonLabel>
+                  </IonChip>
+                </IonCardTitle>
+                <IonCardContent>{fileContents[currentPage]?.memoryVerse}</IonCardContent>
+              </IonCard>
+            )
+          }
 
           {
              fileContents[currentPage]?.main_text && (
@@ -147,58 +144,67 @@ function Manual() {
             </IonCard>
           )}
 
+          {
+            fileContents[currentPage]?.meaning && (
+              <IonCard style={{paddingTop: "10px"}}>
+                <IonCardTitle>
+                  <IonChip>
+                    <IonIcon icon={bulbSharp} color="primary"></IonIcon>
+                    <IonLabel>Meaning</IonLabel>
+                  </IonChip>
+                </IonCardTitle>
+                <IonCardContent>
+                <p>{fileContents[currentPage]?.meaning}</p> 
 
-          <IonCard style={{paddingTop: "10px"}}>
-            <IonCardTitle>
-              <IonChip>
-                <IonIcon icon={bulbSharp} color="primary"></IonIcon>
-                <IonLabel>Meaning</IonLabel>
-              </IonChip>
-            </IonCardTitle>
-            <IonCardContent>
-             <p>{fileContents[currentPage]?.meaning}</p> 
+                { fileContents[currentPage]?.meaning_list.length > 0 && (
+                  <ol style={{padding: '15px'}}>
+                    {
+                      fileContents[currentPage]?.meaning_list.map((ele:string, index: number) =>(
+                        <li key={index}>{ele}</li>
+                      ))
+                    }
+                  </ol>
+                )}
 
-             { fileContents[currentPage]?.meaning_list.length > 0 && (
-              <ol style={{padding: '15px'}}>
-                {
-                  fileContents[currentPage]?.meaning_list.map((ele:string, index: number) =>(
-                    <li key={index}>{ele}</li>
-                  ))
-                }
-              </ol>
-             )}
-
-            </IonCardContent>
-          </IonCard>
+                </IonCardContent>
+              </IonCard>
+            )
+          }
 
           <br /><br />
           {
-            fileContents[currentPage]?.body.map((ele:any, index:any) =>(
-             <div>
-              {ele.header && (
-              <div style={{padding: '5px 15px', fontWeight: 'bolder', background: 'black', color: 'white'}}>
-               <IonText><p>{ele.header}</p></IonText>
-              </div>
-
-              )}
-               <ol style={{padding: '0px 20px'}} key={index}>
+            fileContents[currentPage]?.body.length > 0  && (
+              <div>
                 {
-                  ele.content.map((ele: any, index: number) =>(
-                    <div key={index}>
-                      <li style={{marginTop: '15px'}}><b>{ele?.header}</b></li>
-                      <div>
-                        {ele?.list.map((ele:any, index:any) =>(
-                          <p>- {ele}</p>
-                        ))}
-
-                      </div>
+                  fileContents[currentPage]?.body.map((ele:any, index:any) =>(
+                   <div>
+                    {ele.header && (
+                    <div style={{padding: '5px 15px', fontWeight: 'bolder', background: 'black', color: 'white'}}>
+                     <IonText><p>{ele.header}</p></IonText>
                     </div>
+      
+                    )}
+                     <ol style={{padding: '0px 20px'}} key={index}>
+                      {
+                        ele.content.map((ele: any, index: number) =>(
+                          <div key={index}>
+                            <li style={{marginTop: '15px'}}><b>{ele?.header}</b></li>
+                            <div>
+                              {ele?.list.map((ele:any, index:any) =>(
+                                <p>- {ele}</p>
+                              ))}
+      
+                            </div>
+                          </div>
+                        ))
+                      }
+                     </ol>
+                   </div>
                   ))
+      
                 }
-               </ol>
-             </div>
-            ))
-
+              </div>
+            )
           }
 
           {

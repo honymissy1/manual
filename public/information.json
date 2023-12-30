@@ -2,72 +2,85 @@
     {
         "id": "Jan-June-2024",
         "year": "2024",
-        "title": "Jan - June"
+        "title": "Jan - June",
+        "available": true
     },
     {
         "id": "July-Dec-2023",
         "year": "2023",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": true
     },
 
     {
         "id": "Jan-June-2023",
         "year": "2023",
-        "title": "Jan - June"
+        "title": "Jan - June",
+        "available": false
     },
 
     {
         "id": "July-Dec-2022",
         "year": "2022",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": false
     },
 
     {
         "id": "Jan-June-2022",
         "year": "2022",
-        "title": "Jan - June"
+        "title": "Jan - June",
+        "available": false
     },
     
     {
         "id": "July-Dec-2021",
         "year": "2021",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": false
     },
 
     {
         "id": "Jan-June-2021",
         "year": "2021",
-        "title":"Jan - June"
+        "title":"Jan - June",
+        "available": false
     },
 
     {
         "id": "July-Dec-2020",
         "year": "2020",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": false
     },
     {
         "id": "Jan-June-2020",
         "year": "2020",
-        "title":"Jan - June"
+        "title":"Jan - June",
+        "available": false
     },
     {
         "id": "July-Dec-2019",
         "year": "2019",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": false
     },
     {
         "id": "Jan-June-2019",
         "year": "2019",
-        "title":"Jan - June"
+        "title":"Jan - June",
+        "available": false
     },
     {
         "id": "July-Dec-2018",
         "year": "2018",
-        "title": "July - Dec"
+        "title": "July - Dec",
+        "available": false
     },
     {
         "id": "Jan-June-2018",
         "year": "2018",
-        "title":"Jan - June"
+        "title":"Jan - June",
+        "available": false
     }
 ]
