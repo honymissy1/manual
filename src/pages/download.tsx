@@ -58,7 +58,7 @@ const DownloadPage = () => {
     FlutterwaveCheckout({
       public_key: 'FLWPUBK-f5771c16f68eb570d91c4c8ae5092ed1-X',
       tx_ref: Date.now(),
-      amount: 300,
+      amount: 400,
       currency: 'NGN',
       payment_options: 'card,mobilemoney,ussd',
       customer: {
