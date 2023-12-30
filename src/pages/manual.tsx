@@ -66,7 +66,10 @@ function Manual() {
               fileContents.map((ele:any, index:number)=>(
                 <IonMenuToggle key={index} onClick={() => setCurrentPage(index)}>
                   <IonCard style={{padding: '5px',background: index == currentPage ? 'rgb(198, 255, 198)': '' }}>
+                   <div style={{display: 'flex', justifyContent: 'space-between', padding: '10px 0px'}}>
+                    <IonLabel color="success"><b>Lesson {index + 1}</b></IonLabel>
                     <IonLabel color="success">{ele.date}</IonLabel>
+                   </div>
                     <p>{ele.title} {ele.part}</p>
                   </IonCard>
                 </IonMenuToggle>
